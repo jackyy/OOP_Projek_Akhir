@@ -7,8 +7,10 @@ public class Query {
 	Connection conn = null;
 	
 	public ResultSet select(String table, String condition) {
+//		System.out.println("select * "
+//        		+ " from "+ table
+//        		+ " where " + condition);
 		ResultSet rs = null;
-		
 		try {
 	        Statement stmt = conn.createStatement();
 	        rs = stmt.executeQuery("select * "
@@ -21,16 +23,15 @@ public class Query {
 		return rs;
 	}
 	
-	public void update(String table, String column_value, String new_value, String column_id, Integer id) {
+	public void update(String table, String column_value, String new_value, String condition) {
 		try {
-			String s = "update " + table 
-					+ " set "+ column_value + " = '"+new_value+"' where " +column_id + " = '"+id+"' ";
+			String s = "update " + table + " set " + column_value + " = " + new_value+ " where " + condition;
 			PreparedStatement pst = conn.prepareStatement(s);
             
             int check = pst.executeUpdate();
             
             if (check != 0) {
-                System.out.println("Data successfully Update!");
+                System.out.println("Data successfully updated!");
             } else {
                 System.out.println("Update failed");
             }
@@ -41,14 +42,13 @@ public class Query {
 	
     public void delete(String table, String column_id, Integer id) {
         try {
-            PreparedStatement pst = conn.prepareStatement("delete from "+table+" where "+column_id+" = "+id);
-
+            PreparedStatement pst = conn.prepareStatement("delete from " + table + " where " + column_id + " = " + id);
             
             int check = pst.executeUpdate();
             if (check != 0) {
                 System.out.println("Data successfully Deleted!");
             } else {
-                System.out.println("Insert Deleted");
+                System.out.println("No data deleted");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,8 +57,8 @@ public class Query {
 	
     public void insert(String table, String column, String value) {
         try {
-//        	String x = "insert into "+ table + column + " values " + value;
             PreparedStatement pst = conn.prepareStatement("insert into "+ table + " " + column + " values " + value);
+//            System.out.println("insert into "+ table + " " + column + " values " + value);
             int check = pst.executeUpdate();
             if (check != 0) {
                 System.out.println("Data successfully inserted!");
@@ -68,6 +68,17 @@ public class Query {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public ResultSet getLastData(String table, String field) {
+    	ResultSet rs = null;
+		try {
+	        Statement stmt = conn.createStatement();
+	        rs = stmt.executeQuery("select * from " + table + " order by " + field + " DESC LIMIT 1");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		return rs;
     }
     
 	public Integer size(ResultSet rs) {
