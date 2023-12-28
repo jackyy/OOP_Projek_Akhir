@@ -6,6 +6,8 @@ import java.sql.*;
 public class Main {
 	Scanner scan = new Scanner(System.in);
 	Menu menu = new Menu();
+	New_transaction new_transaction = new New_transaction();
+	Update_transaction update_transaction = new Update_transaction();
 	
 	public static void main(String[] args) {
 		Query query = new Query();
@@ -29,20 +31,14 @@ public class Main {
             
         	 if(inp.equals(1)) {
         		 menu.add_menu(query, employee);
-        		 break;
-        		 
              }else if(inp.equals(2)) {
             	 menu.update_menu(query, employee);
-            	 break;
-            	 
              }else if(inp.equals(3)) {
             	 menu.delete_menu(query, employee);
-            	 break;
-            	 
              }else if(inp.equals(4)) {
-            	 break;
+            	 new_transaction.make_reservation(query, employee);
              }else if(inp.equals(5)) {
-            	 break;
+            	 update_transaction.update(query, employee);
             	 
              }else if(inp.equals(6)) {
             	 //keluar
@@ -91,9 +87,8 @@ public class Main {
         add transaction reservation parameter [employye_id, customer_name, table_quantity, table_type, human_per_table ]
 
         jika typenya itu order lakuin no 1 di update
-
-
 */
+    	
     }
 	
 }

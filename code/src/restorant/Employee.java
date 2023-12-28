@@ -42,7 +42,7 @@ public class Employee {
 	        	if(this.location.equals("Bandung") ||this.location.equals("Jakarta") || this.location.equals("Bali")) {
 	        		this.tipe_resto = "Special";
 	        	}else {
-	        		this.tipe_resto = "Lokal";
+	        		this.tipe_resto = "Local";
 	        	}
 	        }
 	        
@@ -56,19 +56,20 @@ public class Employee {
 	}
 	
     public Employee(Query query) {
+    	System.out.println("Choparang exists");
     	Scanner scan = new Scanner(System.in);
         System.out.println();
         System.out.println("-----Employee-----");
-        
         show_employee(query);
         while(true) {
-        	System.out.println("Insert employee id:");
+        	System.out.println("Insert your employee id:");
             Integer id = scan.nextInt(); scan.nextLine();
            
             if(check_data(id, query).equals(true)) {
             	System.out.println("Employee id enter succesfully");
             	break;
             }
+            System.out.println("Unknown employee id. Please re-input");
         }
         
         return;
