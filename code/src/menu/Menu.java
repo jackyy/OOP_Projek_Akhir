@@ -1,17 +1,21 @@
-package restorant;
+package menu;
 
 import java.util.*;
+
+import employee.Employee;
+import query.Query;
+
 import java.sql.*;
 
 
 public class Menu {
-	int id;
-	String name;
+	public int id;
+	public String name;
 	int price;
-	String location;
+	public String location;
 	
 	Scanner scan = new Scanner(System.in);
-	HashMap<Integer, Integer> save_id = new HashMap<Integer, Integer>();
+	public HashMap<Integer, Integer> save_id = new HashMap<Integer, Integer>();
 	Integer count = 1;
 	Menu_special menu_special = new Menu_special();
 	Menu_local menu_local = new Menu_local();

@@ -1,14 +1,17 @@
-package restorant;
+package employee;
 
 import java.util.*;
+
+import query.Query;
+
 import java.sql.*;
 
 
 public class Employee {
-	Integer id;
-	String nama;
-	String location;
-	String tipe_resto;
+	public Integer id;
+	public String nama;
+	public String location;
+	public String tipe_resto;
 	
 	public void show_employee(Query query) {
 		try {

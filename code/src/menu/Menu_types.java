@@ -1,7 +1,10 @@
-package restorant;
+package menu;
 
 import java.util.HashMap;
 import java.util.List;
+
+import employee.Employee;
+import query.Query;
 
 interface Menu_types {
 	public HashMap<Integer, Integer> display_menu_location(Query query, Employee employee, HashMap<Integer, Integer> save_id, Integer Count);

@@ -1,5 +1,11 @@
-package restorant;
+package transaction;
 import java.util.*;
+
+import customer.Customer;
+import employee.Employee;
+import menu.Menu;
+import query.Query;
+
 import java.sql.*;
 
 public class Update_transaction {
@@ -100,18 +106,66 @@ public class Update_transaction {
 	}
 	
 	public void finalize_order(Query query, Employee employee) {
-		Menu menu = new Menu();
-		// display all menus available at this employee's restaurant
-		menu.display_all_menu(query, employee);
+		
+		// display all transaction
+		
 		
 		// get input which transaction id that is going to be finalized
-		// don't forget to validate the transaction status (it must be "in_order")
+		System.out.print("Input Transaction ID: ");
+		Integer finalId = scan.nextInt();
 		
-		// from table orders join table menus, display menu name, menu price, menu quantity, menu_price*quantity
+		ResultSet rs = query.select("transactions", "transaction_id = "+finalId);
+		Integer totalPrice = 0;
 		
-		// after all of the list above printed, display total price that has to be paid
+		try {
+			
+			while(rs.next()) {
+				
+				if(rs.getString("status").equals("in_order")) {
+				
+				ResultSet tr = query.show_transaction(rs, finalId);
+				// don't forget to validate the transaction status (it must be "in_order")
+					System.out.println();
+					System.out.println("Transaction ID: " + finalId);
+					System.out.println("Menu                Price	Quantity");
+					
+					while(tr.next()) {
+						String menuName = null;
+						Integer menuPrice = null;
+						Integer menuQuantity = null;
+						
+						try {
+							// from table orders join table menus, display menu name, menu price, menu quantity, menu_price*quantity
+							menuName = tr.getString("nama_makanan");
+							menuPrice = tr.getInt("price");
+							menuQuantity = tr.getInt("quantity");
+							totalPrice = totalPrice + tr.getInt("total_price");
+							
+							System.out.printf("%-20s", menuName);
+							System.out.printf("%-10d", menuPrice);
+							System.out.println("  " + menuQuantity);
+							
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					// after all of the list above printed, display total price that has to be paid
+					System.out.printf("%20s", "");
+					System.out.println("Total Price: " + totalPrice);
+					
+					// finally, in transactions table, change this transaction_id status from "in_order" to "finalized"
+					query.update("transactions", "status", "'finalized'", "transaction_id = " + finalId);
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		// finally, in transactions table, change this transaction_id status from "in_order" to "finalized"
+		
 	}
 	
 	
@@ -129,6 +183,8 @@ public class Update_transaction {
 			System.out.println("Unknown option, please re-input\n");
 		}
 		System.out.println("");
+		
+		viewAllTransactions(query);
 		
 		if(choice == 1) {
 			take_order(query, employee);

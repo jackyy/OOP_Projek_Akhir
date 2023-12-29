@@ -1,10 +1,11 @@
-package restorant;
-import java.util.*;
+package customer;
+import query.Query;
+
 import java.sql.*;
 
 public class Customer {
-	String name;
-	Integer id;
+	public String name;
+	public Integer id;
 	
 	public String getName(Query query, Integer customer_id) {
 		ResultSet rs = query.select("customers", "customer_id = " + customer_id);

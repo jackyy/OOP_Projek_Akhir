@@ -1,4 +1,4 @@
-package restorant;
+package query;
 
 import java.util.*;
 import java.sql.*;
@@ -31,8 +31,10 @@ public class Query {
             int check = pst.executeUpdate();
             
             if (check != 0) {
+            	System.out.println();
                 System.out.println("Data successfully updated!");
             } else {
+            	System.out.println();
                 System.out.println("Update failed");
             }
         } catch (Exception e) {
@@ -93,6 +95,21 @@ public class Query {
 		return ct;
 	}
 	
+	public ResultSet show_transaction(ResultSet rs, Integer targetId) {
+		// from table orders join table menus, display menu name, menu price, menu quantity, menu_price*quantity
+		try {
+	        Statement stmt = conn.createStatement();
+	        rs = stmt.executeQuery("select nama_makanan, price, quantity, price*quantity AS `total_price` "
+	        		+ " from "+ "orders as o join menus as m ON m.menu_id = o.menu_id"
+	        		+ " where transaction_id = " + targetId);
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		
+		return rs;
+	}
+	
 	public Query() {
 		try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -103,8 +120,10 @@ public class Query {
             } else {
                 System.out.println("Failed to connect");
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
 	}
+	
 }

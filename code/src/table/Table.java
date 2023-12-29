@@ -1,10 +1,13 @@
-package restorant;
+package table;
 import java.util.*;
+
+import query.Query;
+
 import java.sql.*;
 
 public class Table {
-	String table_type;
-	Integer num_of_people;
+	public String table_type;
+	public Integer num_of_people;
 	public boolean check_table(Query query) {
 		ResultSet rs = query.select("tables", "table_type = '" + this.table_type +"'");
 		boolean error = false;
