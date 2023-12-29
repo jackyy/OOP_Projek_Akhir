@@ -1,5 +1,12 @@
 package restorant;
 import java.util.*;
+
+import employee.Employee;
+import menu.Menu;
+import query.Query;
+import transaction.New_transaction;
+import transaction.Update_transaction;
+
 import java.sql.*;
 
 
@@ -41,54 +48,11 @@ public class Main {
             	 update_transaction.update(query, employee);
             	 
              }else if(inp.equals(6)) {
-            	 //keluar
-            	 break;
+            	 System.out.println("Arigatouu~~");
+            	 System.exit(0);;
              }
         }
         
-    }
-
-
-    public void Update_Transaction() {
-/*
-        print transaction yang sesuai dengan lokasi
-
-        input transaction id
-
-        kalo posisinya status
-        reserve -> in order
-        in order -> finalized
-        minta konfirmasi terlebih dahulu untuk perubahan status
-
-        1. status reserve -> order
-        tugas butuh add order
-        print menu yang ada
-            input id_menu
-            input quantitiy
-            add order parameter -> [transaction id, menu id, quatity]
-
-            masih lanjut makanan [y/n] no keluar, yes input lagi
-
-        2. status in order -> finalized
-        print total harga
-        finalize
-*/
-    }
-    public void Add_Transaction(){
-/*
-        input type (reservation or order)
-        input customer name
-        input table quantitiy
-        input table type
-        input human per table
-
-        validasi apakah human per table > max table type. no lanjut, iya input ulang
-
-        add transaction reservation parameter [employye_id, customer_name, table_quantity, table_type, human_per_table ]
-
-        jika typenya itu order lakuin no 1 di update
-*/
-    	
     }
 	
 }
